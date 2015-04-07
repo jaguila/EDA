@@ -1,0 +1,46 @@
+Exploratory Data analysis 
+week 1
+
+Graphs
+	understand, find patterns, suggest modeling, and debug analysis
+	Exploratory
+		made quickly
+		large number
+		goals - personal understanding
+		Axes/Legends are generally cleaned up
+		color/size are primarily used for information
+
+example
+	air pollution
+		question
+			are there any counties in the US that exceen the limit of 12 microgram/m^3
+		Data available from US EPA website
+
+sample code
+	pollution<-read.csv(".csv", colClasses = c("numeric,"character","factor","numeric","numeric")) #reads in and it sets the classes for each column
+	head(pollution) #prints out the first few rows of the dataset
+	data
+		pm25 - annual average 
+		fips - identifier for the county
+		region - region
+		longitude and latitude - location coordinates of the monitor
+		
+questions to ask
+	you should have a questions to drive your explanation
+	one dimension
+		5 number summary
+			min, 1st quartile, median, mean, 3rd quartile, max
+			code: summary(pollution$pm25) # dataset$column
+		boxplots
+			Code: boxplot(pollution$pm25, col="blue)
+			ablint(h=12) # overlays a line at a certain point
+		histograms
+			code: hist(pollution$pm25,col="green", breaks=100) #breaks are the number of bars in the histogram bar graph
+			rug(pollution$pm25) #plots all of the points under the histogram
+			abline(v=12, lwd=2) #creates overlay which is vertical at 12 and line width of 2
+			abline(v=median(pollution$pm25), col = "magenta", lwd=4) #creates line at the median of the pollution$pm25 and color of magenta
+		density plot
+		barplot
+			code: barplot(table(pollution$region), col="wheat", main="Number of counties in Each Region")
+	two dimensional plots
+		multiple/overlayed 1-dplots"
