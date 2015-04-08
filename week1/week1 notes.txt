@@ -17,7 +17,7 @@ example
 		Data available from US EPA website
 
 sample code
-	pollution<-read.csv(".csv", colClasses = c("numeric,"character","factor","numeric","numeric")) #reads in and it sets the classes for each column
+	pollution<-read.csv(".csv", colClasses = c("numeric,"character","factor","numeric","numeric")) #reads in and it sets the classes for each column into a dataframe
 	head(pollution) #prints out the first few rows of the dataset
 	data
 		pm25 - annual average 
@@ -33,7 +33,7 @@ questions to ask
 			code: summary(pollution$pm25) # dataset$column
 		boxplots
 			Code: boxplot(pollution$pm25, col="blue)
-			ablint(h=12) # overlays a line at a certain point
+			abline(h=12) # overlays a line at a certain point
 		histograms
 			code: hist(pollution$pm25,col="green", breaks=100) #breaks are the number of bars in the histogram bar graph
 			rug(pollution$pm25) #plots all of the points under the histogram
@@ -43,4 +43,61 @@ questions to ask
 		barplot
 			code: barplot(table(pollution$region), col="wheat", main="Number of counties in Each Region")
 	two dimensional plots
-		multiple/overlayed 1-dplots"
+		multiple/overlayed 1-dplots (lattice/ggplot2)
+			multiple boxplots
+				boxplot(pm25~region, data = pollution, col="red")
+				y~x
+				use this to see pm25 seperated by the different factors of region
+				ex.
+					pm25 higher in east than west but extremes are in west and larger spread
+			multiple histograms
+				par(mfrow = c(2,1), mar=c(4,4,2,1))
+				hist(subset(pollution,region=="east")$pm25, col="green")
+				hist(subset(pollution, region=="west")$pm25, col="green")
+					subset(x, cond) - subsets dataframe x using filter of cond)
+					par(mfrow,mar) - plots based on parameters
+						multiple graphs per col(mfcol) or row(mfrow)
+						mar - margin
+				ex.
+					east - higher on average but not to many extreme values
+					west - lower on average but large extremes
+		scatterplots
+			with(pollution, plot(latitude,pm25))
+			abline(h=12, lwd=2, lty=2)
+				with(x,y) - applies expression y onto dataset/dataframe x
+			ex.
+				use to see North south trend
+				PM25 is higher in the middle latitudes
+			
+			with(pollution,plot(latitude, pm25, col=region))
+			this adds another dimension by using color
+			ex.
+				black dots are East and red are west columns
+		smooth scatterplots
+			par(mfrow=c(1,2), mar=c(5,4,2,1))
+			with(subset(pollution,region=="west"),plot(latitude,pm25, main="West")
+			with(subset(pollution,region=="east"),plot(latitude,pm25, main="East")
+			ex.
+				you can see that both cases higher pllution are in the middle latitudes, ends of the latitudes have lower pm25
+			
+	>2 dimension
+		overlayed/multple 2-d plots; coplots
+		used color, size, shape to add dimensions
+		spinning plots
+		actual 3-d plots(not very useful)
+
+different plotting systems
+	base plotting system
+		start with blank canvas and build up from there
+		start with plot function then annotate plot
+		pros
+			convenient, mirors how we think and analyze
+			simple commands
+		cons
+			have to keep track of code
+			can't go back(adjust margins)
+			difficult to transflate to others once a new plot as been created
+	lattice system
+		plots created with single function call
+			
+		
